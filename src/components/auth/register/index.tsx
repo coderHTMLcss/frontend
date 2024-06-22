@@ -19,7 +19,7 @@ const RegisterPage: FC<IPropsRegister> = ({ setEmail, setPassword, setRepeatPass
             <Button type='submit' sx={{ fontFamily: 'Poppins', margin: '16px 0 8px', width: '60%' }} variant="contained">Sign Up</Button>
             <Typography variant="body1" sx={{ fontFamily: 'Poppins' }}>
                 If you have an account?
-                <span className='incitingText' onClick={() => navigate('/login')}>Login</span>
+                <span className='incitingText' onClick={()=>navigate('/login')}>Login</span>
             </Typography>
         </>
     )
