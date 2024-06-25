@@ -7,7 +7,7 @@ import SidebarComponent from "../sidebar";
 import { useStyles } from "./styles";
 
 const LayoutComponent: FC = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const isNonMobile = useMediaQuery('(min-width:600px)');
   const classes = useStyles()
@@ -33,7 +33,10 @@ const LayoutComponent: FC = () => {
           setIsOpen={setIsOpen}
         />
         <Box className={classes.mainSection}>
-          <TopBarComponent />
+          <TopBarComponent
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+          />
           <Outlet />
         </Box>
       </Box>
