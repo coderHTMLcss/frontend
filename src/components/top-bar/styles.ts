@@ -7,17 +7,21 @@ export const useStyles = makeStyles((theme: Theme) => {
 
   return {
     root: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      padding: "32px 24px",
-      backgroundColor: colors.primary.DEFAULT,
-      maxHeight: "95px",
+      position: "static",
+      background: `${colors.primary.DEFAULT} !important`,
       borderBottom: `1px solid ${colors.borderColor}`,
+      boxShadow: "none !important",
+    },
+    toolbar: {
+      justifyContent: "space-between",
+      padding: "25px 45px",
+    },
+    menuIcon: {
+      marginRight: "10px",
+      cursor: "pointer",
     },
     gridIcon: {
       paddingRight: "35px",
-      paddingTop: "10px",
       borderRight: `2px solid ${colors.borderColor}`,
     },
     themeIcon: {
@@ -25,13 +29,14 @@ export const useStyles = makeStyles((theme: Theme) => {
     },
     searchBlock: {
       display: "flex",
+      maxHeight: "45px",
       backgroundColor: `${colors.primary[500]}`,
       borderRadius: "8px",
       marginLeft: "28px",
     },
     searchIcon: {
       "&:hover": {
-        backgroundColor: "transparent",
+        backgroundColor: "transparent !important",
       },
     },
     searchInput: {

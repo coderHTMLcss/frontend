@@ -1,44 +1,45 @@
-import React, { useContext } from 'react';
-import { Box, Grid, IconButton, InputBase, Typography, useTheme } from '@mui/material';
+import React, { useContext, FC } from 'react';
+import { AppBar, Box, Grid, IconButton, InputBase, Toolbar, Typography, useTheme } from '@mui/material';
 import { useAppSelector } from '../../utils/hook';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import DarkModeSharpIcon from '@mui/icons-material/DarkModeSharp';
-import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
+import { Notifications, SearchOutlined, DarkModeSharp, WbSunnyOutlined, MenuOutlined } from '@mui/icons-material';
 import { ColorModeContext } from '../../theme';
 import { useStyles } from './styles';
+import { ITopBar } from '../../common/types/layout';
+import FlexBetween from '../flexBetween';
 
-
-const TopBarComponent = () => {
+const TopBarComponent: FC<ITopBar> = ({ isOpen, setIsOpen }) => {
     const user = useAppSelector(state => state.auth.user);
     const theme = useTheme();
     const colorMode = useContext(ColorModeContext);
     const classes = useStyles();
 
     return (
-        <Box className={classes.root}>
-            <Grid>
-                <Typography variant="h3">
-                    Welcome {user ? `${user.firstName}` : ''}
-                </Typography>
-            </Grid>
-            <Box display='flex'>
-                <Grid className={classes.gridIcon}>
-                    <IconButton className={classes.themeIcon} onClick={colorMode.toggleColorMode}>
-                        {theme.palette.mode === 'dark' ? (<DarkModeSharpIcon />) : (<WbSunnyOutlinedIcon />)}
-                    </IconButton>
-                    <IconButton>
-                        <NotificationsIcon />
-                    </IconButton>
-                </Grid>
-                <Grid className={classes.searchBlock}>
-                    <IconButton className={classes.searchIcon}>
-                        <SearchOutlinedIcon />
-                    </IconButton>
-                    <InputBase className={classes.searchInput} />
-                </Grid>
-            </Box>
-        </Box>
+        <AppBar className={classes.root} position="static">
+            <Toolbar className={classes.toolbar}>
+                <FlexBetween>
+                    <MenuOutlined className={classes.menuIcon} onClick={() => setIsOpen(!isOpen)} />
+                    <Typography variant="h3">
+                        Welcome {user ? `${user.firstName}` : ''}
+                    </Typography>
+                </FlexBetween>
+                <Box display='flex'>
+                    <Grid className={classes.gridIcon}>
+                        <IconButton className={classes.themeIcon} onClick={colorMode.toggleColorMode}>
+                            {theme.palette.mode === 'dark' ? (<DarkModeSharp />) : (<WbSunnyOutlined />)}
+                        </IconButton>
+                        <IconButton>
+                            <Notifications />
+                        </IconButton>
+                    </Grid>
+                    <Grid className={classes.searchBlock}>
+                        <IconButton className={classes.searchIcon}>
+                            <SearchOutlined />
+                        </IconButton>
+                        <InputBase className={classes.searchInput} />
+                    </Grid>
+                </Box>
+            </Toolbar>
+        </AppBar>
     )
 }
 
