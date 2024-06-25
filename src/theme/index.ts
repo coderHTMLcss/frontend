@@ -1,4 +1,4 @@
-import { createContext, useState, useMemo } from "react";
+import { createContext, useState, useMemo, useEffect } from "react";
 import { createTheme } from "@mui/material";
 
 export const tokens = (mode: string) => ({
@@ -138,12 +138,17 @@ export const themeSettings: any = (mode: string) => {
   };
 };
 
+const getInitialMode = () => {
+  const savedMode = localStorage.getItem("themeMode");
+  return savedMode ? savedMode : "light";
+};
+
 export const ColorModeContext = createContext<{ toggleColorMode: () => void }>({
   toggleColorMode: () => {},
 });
 
 export const useMode = () => {
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState(getInitialMode);
 
   const colorMode = useMemo(
     () => ({
@@ -154,6 +159,10 @@ export const useMode = () => {
   );
 
   const theme: any = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+
+  useEffect(() => {
+    localStorage.setItem("themeMode", mode);
+  }, [mode]);
 
   return [theme, colorMode];
 };
