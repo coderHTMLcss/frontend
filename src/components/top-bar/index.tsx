@@ -1,46 +1,58 @@
 import React, { useContext, FC } from 'react';
-import { AppBar, Box, Grid, IconButton, InputBase, Toolbar, Typography, useTheme } from '@mui/material';
+import { Box, Typography, useTheme, IconButton } from '@mui/material';
+import { Notifications, SearchOutlined, DarkModeSharp, WbSunnyOutlined } from '@mui/icons-material';
 import { useAppSelector } from '../../utils/hook';
-import { Notifications, SearchOutlined, DarkModeSharp, WbSunnyOutlined, MenuOutlined } from '@mui/icons-material';
 import { ColorModeContext } from '../../theme';
-import { useStyles } from './styles';
-import { ITopBar } from '../../common/types/layout';
 import FlexBetween from '../flexBetween';
+import {
+    StyledAppBar,
+    StyledToolbar,
+    MenuIcon,
+    GridIcon,
+    ThemeIcon,
+    SearchBlock,
+    SearchIcon,
+    SearchInput
+} from './styles';
+
+interface ITopBar {
+    isOpen: boolean;
+    setIsOpen: (open: boolean) => void;
+}
 
 const TopBarComponent: FC<ITopBar> = ({ isOpen, setIsOpen }) => {
     const user = useAppSelector(state => state.auth.user);
     const theme = useTheme();
     const colorMode = useContext(ColorModeContext);
-    const classes = useStyles();
 
     return (
-        <AppBar className={classes.root} position="static">
-            <Toolbar className={classes.toolbar}>
+        <StyledAppBar theme={theme}>
+            <StyledToolbar>
                 <FlexBetween>
-                    <MenuOutlined className={classes.menuIcon} onClick={() => setIsOpen(!isOpen)} />
+                    <MenuIcon onClick={() => setIsOpen(!isOpen)} />
                     <Typography variant="h3">
                         Welcome {user ? `${user.firstName}` : ''}
                     </Typography>
                 </FlexBetween>
                 <Box display='flex'>
-                    <Grid className={classes.gridIcon}>
-                        <IconButton className={classes.themeIcon} onClick={colorMode.toggleColorMode}>
+                    <GridIcon theme={theme}>
+                        <ThemeIcon onClick={colorMode.toggleColorMode}>
                             {theme.palette.mode === 'dark' ? (<DarkModeSharp />) : (<WbSunnyOutlined />)}
-                        </IconButton>
+                        </ThemeIcon>
                         <IconButton>
                             <Notifications />
                         </IconButton>
-                    </Grid>
-                    <Grid className={classes.searchBlock}>
-                        <IconButton className={classes.searchIcon}>
+                    </GridIcon>
+                    <SearchBlock theme={theme}>
+                        <SearchIcon>
                             <SearchOutlined />
-                        </IconButton>
-                        <InputBase className={classes.searchInput} />
-                    </Grid>
+                        </SearchIcon>
+                        <SearchInput />
+                    </SearchBlock>
                 </Box>
-            </Toolbar>
-        </AppBar>
-    )
-}
+            </StyledToolbar>
+        </StyledAppBar>
+    );
+};
 
-export default TopBarComponent
+export default TopBarComponent;

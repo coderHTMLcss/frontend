@@ -1,6 +1,5 @@
 import { Box } from '@mui/material'
-import { styled } from '@mui/styles'
-import React from 'react'
+import { styled } from '@mui/material'
 
 const FlexBetween = styled(Box)({
     display: 'flex',

@@ -1,32 +1,40 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
 import LoginPage from './login';
 import RegisterPage from './register';
 import { instance } from '../../utils/axios';
-import "./style.scss";
 import { useAppDispatch } from '../../utils/hook';
 import { login } from '../../store/slice/auth';
 import { AppErrors } from '../../common/errors';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from "@hookform/resolvers/yup"
+import { LoginSchema, RegisterSchema } from '../../utils/yup';
+import { Data } from '../../common/types/auth';
+import "./style.scss";
 
 
 const AuthRootComponent: FC = (): JSX.Element => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [repeatPassword, setRepeatPassword] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [userName, setUserName] = useState('');
     const location = useLocation();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const {
+        register,
+        formState: {
+            errors
+        },
+        handleSubmit
+    } = useForm({
+        resolver: yupResolver(location.pathname === '/login' ? LoginSchema : RegisterSchema),
+    });
 
-    const handleSubmit = async (e: { preventDefault: () => void }) => {
-        e.preventDefault();
+    const handleSubmitForm = async (data: Data) => {
+        console.log(data);
         if (location.pathname === '/login') {
             try {
                 const userData = {
-                    email,
-                    password,
+                    email: data.email,
+                    password: data.password
                 }
                 const user = await instance.post('auth/login', userData);
                 dispatch(login(user.data));
@@ -35,13 +43,13 @@ const AuthRootComponent: FC = (): JSX.Element => {
                 return error.message
             }
         } else {
-            if (password === repeatPassword) {
+            if (data.password === data.confirmPassword) {
                 try {
                     const userData = {
-                        firstName,
-                        userName,
-                        email,
-                        password,
+                        firstName: data.name,
+                        userName: data.username,
+                        email: data.email,
+                        password: data.password,
                     }
                     const newUser = await instance.post('auth/register', userData);
                     dispatch(login(newUser.data));
@@ -57,7 +65,7 @@ const AuthRootComponent: FC = (): JSX.Element => {
 
     return (
         <div className='root'>
-            <form onSubmit={handleSubmit} className='form'>
+            <form onSubmit={handleSubmit(handleSubmitForm as () => Promise<Data>)} className='form'>
                 <Box
                     display='flex'
                     justifyContent='center'
@@ -72,18 +80,15 @@ const AuthRootComponent: FC = (): JSX.Element => {
                     {
                         location.pathname === '/login' ?
                             <LoginPage
-                                setEmail={setEmail}
-                                setPassword={setPassword}
                                 navigate={navigate}
+                                register={register as any}
+                                errors={errors}
                             />
                             : location.pathname === '/register' ?
                                 <RegisterPage
-                                    setEmail={setEmail}
-                                    setPassword={setPassword}
-                                    setRepeatPassword={setRepeatPassword}
-                                    setFirstName={setFirstName}
-                                    setUserName={setUserName}
                                     navigate={navigate}
+                                    register={register as any}
+                                    errors={errors}
                                 />
                                 : null}
                 </Box>
