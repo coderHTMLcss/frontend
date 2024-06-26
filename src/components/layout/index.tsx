@@ -1,38 +1,41 @@
 import React, { FC, useState } from "react";
 import { Outlet } from "react-router-dom";
-import TopBarComponent from "../top-bar";
 import { useLocation } from "react-router-dom";
 import { useMediaQuery, Box } from "@mui/material";
 import SidebarComponent from "../sidebar";
-import { useStyles } from "./styles";
+import TopBarComponent from "../top-bar";
 
-const LayoutComponent: FC = () => {
+const LayoutComponent: FC = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const isNonMobile = useMediaQuery('(min-width:600px)');
-  const classes = useStyles()
+  const isNonMobile = useMediaQuery("(min-width:600px)");
 
   return (
-    location.pathname === '/login' || location.pathname === '/register' ? (
+    location.pathname === "/login" || location.pathname === "/register" ? (
       <>
         <Outlet />
       </>
     ) : (
       <Box
         sx={{
-          display: isNonMobile ? 'flex' : 'block',
-          justifyContent: 'space-between',
-          width: '100%',
-          height: '100%',
+          display: isNonMobile ? "flex" : "block",
+          justifyContent: "space-between",
+          width: "100%",
+          height: "100%",
         }}
       >
         <SidebarComponent
           isNonMobile={isNonMobile}
-          drawerWidth='250px'
+          drawerWidth={250}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
         />
-        <Box className={classes.mainSection}>
+        <Box sx={{
+          display: "flex",
+          flexGrow: 1,
+          flexDirection: "column",
+          justifyContent: "center",
+        }}>
           <TopBarComponent
             isOpen={isOpen}
             setIsOpen={setIsOpen}
@@ -41,7 +44,7 @@ const LayoutComponent: FC = () => {
         </Box>
       </Box>
     )
-  )
+  );
 };
 
 export default LayoutComponent;

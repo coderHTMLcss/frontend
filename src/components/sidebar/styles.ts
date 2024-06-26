@@ -1,40 +1,63 @@
-import { Theme } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { styled } from "@mui/material";
+import {
+  Typography as MuiTypography,
+  Drawer as MuiDrawer,
+  ListItemButton as MuiListItemButton,
+  Theme,
+} from "@mui/material";
 import { tokens } from "../../theme";
 
-export const useStyles = makeStyles((theme: Theme) => {
-  const colors = tokens(theme.palette.mode);
+interface StyledComponentProps {
+  theme?: Theme;
+}
 
+export const Drawer = styled(MuiDrawer)<StyledComponentProps>(({ theme }) => {
+  const colors = theme ? tokens(theme.palette.mode) : tokens("light");
   return {
-    drawerElement: {
-      "& .MuiDrawer-paper": {
-        color: colors.secondary.DEFAULT,
-        backgroundColor: colors.primary.DEFAULT,
-        boxSizing: "border-box",
-      },
+    "& .MuiDrawer-paper": {
+      color: colors.secondary.DEFAULT,
+      backgroundColor: colors.primary.DEFAULT,
+      boxSizing: "border-box",
     },
-    navBlock: {
-      width: "100%",
-      borderBottom: `1px solid ${colors.borderColor}`,
-    },
-    brand: {
-      display: "flex",
-      alignItems: "center",
-      gap: "10px",
-      padding: "30px 15px",
-      cursor: "pointer",
-    },
-    brandTitle: {
-      color: `${
-        theme.palette.mode === "dark"
+  };
+});
+
+export const NavBlock = styled("div")<StyledComponentProps>(({ theme }) => {
+  const colors = theme ? tokens(theme.palette.mode) : tokens("light");
+  return {
+    width: "100%",
+    borderBottom: `1px solid ${colors.borderColor}`,
+  };
+});
+
+export const Brand = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
+  padding: "30px 15px",
+  cursor: "pointer",
+});
+
+export const BrandTitle = styled(MuiTypography)<StyledComponentProps>(
+  ({ theme }) => {
+    const colors = theme ? tokens(theme.palette.mode) : tokens("light");
+    return {
+      color:
+        theme && theme.palette.mode === "dark"
           ? colors.white.DEFAULT
-          : colors.black.DEFAULT
-      }`,
-    },
-    navList: {
-      marginBottom: "55px",
-    },
-    navItem: {
+          : colors.black.DEFAULT,
+    };
+  }
+);
+
+export const NavList = styled("div")({
+  marginBottom: "55px",
+});
+
+export const NavItem = styled(MuiListItemButton)<StyledComponentProps>(
+  ({ theme }) => {
+    const colors = theme ? tokens(theme.palette.mode) : tokens("light");
+    return {
       "&:hover": {
         cursor: "pointer",
         backgroundColor: "#1900D5 !important",
@@ -44,6 +67,6 @@ export const useStyles = makeStyles((theme: Theme) => {
           color: `${colors.white.DEFAULT} !important`,
         },
       },
-    },
-  };
-});
+    };
+  }
+);
