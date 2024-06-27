@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
 import { TextField, Button, Typography } from '@mui/material'
 import { IPropsLogin } from '../../../common/types/auth'
+import { StyledSpan } from '../styles'
+import AppButton from '../../../components/app-button'
 
 const LoginPage: FC<IPropsLogin> = ({ navigate, register, errors }): JSX.Element => {
     return (
@@ -30,10 +32,10 @@ const LoginPage: FC<IPropsLogin> = ({ navigate, register, errors }): JSX.Element
                 helperText={errors.password ? `${errors.password.message}` : ''}
                 {...register('password')}
             />
-            <Button type='submit' sx={{ fontFamily: 'Poppins', margin: '16px 0 8px', width: '60%' }} variant="contained">Sign In</Button>
+            <AppButton type='submit' variant="contained">Sign In</AppButton>
             <Typography variant="body1" sx={{ fontFamily: 'Poppins' }}>
                 You don't have an account?
-                <span className='incitingText' onClick={() => navigate('/register')}>Registration</span>
+                <StyledSpan onClick={() => navigate('/register')}>Registration</StyledSpan>
             </Typography>
         </>
     )

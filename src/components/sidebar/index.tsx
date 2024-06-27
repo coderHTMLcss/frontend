@@ -24,26 +24,23 @@ import {
     NavList,
     NavItem as StyledNavItem,
 } from './styles';
+import { SidebarProps } from '../../common/types/sidebar';
 
-interface SidebarProps {
-    isNonMobile: boolean;
-    drawerWidth: number;
-    isOpen: boolean;
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const SidebarComponent: React.FC<SidebarProps> = ({ isNonMobile, drawerWidth, isOpen, setIsOpen }) => {
+const SidebarComponent: React.FC<SidebarProps> = ({ isNonMobile, drawerWidth, isOpen, setIsOpen }): JSX.Element => {
     const [active, setActive] = useState<string>('');
     const { pathname } = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {
-        setActive(pathname.substring(1));
+        setActive(pathname);
     }, [pathname]);
 
     const renderNavMenu = navMenu.map((nav) => (
         <ListItem key={nav.id}>
-            <StyledNavItem onClick={() => navigate(nav.path)} >
+            <StyledNavItem
+                onClick={() => navigate(nav.path)}
+                className={active === nav.path ? 'active' : ''}
+            >
                 <ListItemIcon>
                     {nav.icon}
                 </ListItemIcon>
