@@ -58,6 +58,17 @@ export const NavItem = styled(MuiListItemButton)<StyledComponentProps>(
   ({ theme }) => {
     const colors = theme ? tokens(theme.palette.mode) : tokens("light");
     return {
+      "&.active": {
+        backgroundColor: "#1900D5 !important",
+        color: `${colors.white.DEFAULT}`,
+        borderRadius: "4px !important",
+        "& .MuiSvgIcon-root": {
+          color: `${colors.white.DEFAULT}`,
+        },
+        "&:hover": {
+          cursor: "auto",
+        },
+      },
       "&:hover": {
         cursor: "pointer",
         backgroundColor: "#1900D5 !important",

@@ -11,7 +11,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import { LoginSchema, RegisterSchema } from '../../utils/yup';
 import { Data } from '../../common/types/auth';
-import "./style.scss";
+// import "./style.scss";
+import { StyledDiv, StyledForm } from './styles';
 
 
 const AuthRootComponent: FC = (): JSX.Element => {
@@ -29,7 +30,6 @@ const AuthRootComponent: FC = (): JSX.Element => {
     });
 
     const handleSubmitForm = async (data: Data) => {
-        console.log(data);
         if (location.pathname === '/login') {
             try {
                 const userData = {
@@ -64,8 +64,8 @@ const AuthRootComponent: FC = (): JSX.Element => {
     }
 
     return (
-        <div className='root'>
-            <form onSubmit={handleSubmit(handleSubmitForm as () => Promise<Data>)} className='form'>
+        <StyledDiv >
+            <StyledForm onSubmit={handleSubmit(handleSubmitForm as () => Promise<Data>)}>
                 <Box
                     display='flex'
                     justifyContent='center'
@@ -92,8 +92,8 @@ const AuthRootComponent: FC = (): JSX.Element => {
                                 />
                                 : null}
                 </Box>
-            </form>
-        </div>
+            </StyledForm>
+        </StyledDiv>
     )
 }
 

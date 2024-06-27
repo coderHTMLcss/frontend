@@ -4,6 +4,7 @@ import { Notifications, SearchOutlined, DarkModeSharp, WbSunnyOutlined } from '@
 import { useAppSelector } from '../../utils/hook';
 import { ColorModeContext } from '../../theme';
 import FlexBetween from '../flexBetween';
+import { TopBarProps } from '../../common/types/topbar';
 import {
     StyledAppBar,
     StyledToolbar,
@@ -15,12 +16,7 @@ import {
     SearchInput
 } from './styles';
 
-interface ITopBar {
-    isOpen: boolean;
-    setIsOpen: (open: boolean) => void;
-}
-
-const TopBarComponent: FC<ITopBar> = ({ isOpen, setIsOpen }) => {
+const TopBarComponent: FC<TopBarProps> = ({ isOpen, setIsOpen }): JSX.Element => {
     const user = useAppSelector(state => state.auth.user);
     const theme = useTheme();
     const colorMode = useContext(ColorModeContext);

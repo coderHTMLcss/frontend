@@ -1,9 +1,13 @@
-import { styled } from "@mui/material";
+import { Theme, styled } from "@mui/material";
 import { AppBar, Toolbar, IconButton, InputBase, Grid } from "@mui/material";
 import { MenuOutlined } from "@mui/icons-material";
 import { tokens } from "../../theme";
 
-export const StyledAppBar = styled(AppBar)<{ theme: any }>`
+interface StyledComponentProps {
+  theme?: Theme;
+}
+
+export const StyledAppBar = styled(AppBar)<{ theme: StyledComponentProps }>`
   position: static;
   background: ${({ theme }) =>
     tokens(theme.palette.mode).primary.DEFAULT} !important;
@@ -23,7 +27,7 @@ export const MenuIcon = styled(MenuOutlined)`
   cursor: pointer;
 `;
 
-export const GridIcon = styled(Grid)<{ theme: any }>`
+export const GridIcon = styled(Grid)<{ theme: StyledComponentProps }>`
   padding-right: 35px;
   border-right: 2px solid
     ${({ theme }) => tokens(theme.palette.mode).borderColor};
@@ -33,7 +37,7 @@ export const ThemeIcon = styled(IconButton)`
   margin-right: 28px;
 `;
 
-export const SearchBlock = styled(Grid)<{ theme: any }>`
+export const SearchBlock = styled(Grid)<{ theme: StyledComponentProps }>`
   display: flex;
   max-height: 45px;
   background-color: ${({ theme }) => tokens(theme.palette.mode).primary[500]};
