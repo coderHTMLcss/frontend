@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
-import { TextField, Button, Typography } from '@mui/material'
+import { TextField, Typography } from '@mui/material'
 import { IPropsLogin } from '../../../common/types/auth'
 import { StyledSpan } from '../styles'
-import AppButton from '../../../components/app-button'
+import AppLoadingButton from '../../../components/loading-button'
 
-const LoginPage: FC<IPropsLogin> = ({ navigate, register, errors }): JSX.Element => {
+const LoginPage: FC<IPropsLogin> = ({ navigate, register, errors, loading }): JSX.Element => {
     return (
         <>
             <Typography variant="h4" fontFamily="Poppins" textAlign='center' marginBottom={2}>
@@ -32,7 +32,7 @@ const LoginPage: FC<IPropsLogin> = ({ navigate, register, errors }): JSX.Element
                 helperText={errors.password ? `${errors.password.message}` : ''}
                 {...register('password')}
             />
-            <AppButton type='submit' variant="contained">Sign In</AppButton>
+            <AppLoadingButton loading={loading} type='submit' variant="contained">Sign In</AppLoadingButton>
             <Typography variant="body1" sx={{ fontFamily: 'Poppins' }}>
                 You don't have an account?
                 <StyledSpan onClick={() => navigate('/register')}>Registration</StyledSpan>

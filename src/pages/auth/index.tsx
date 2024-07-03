@@ -3,16 +3,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
 import LoginPage from './login';
 import RegisterPage from './register';
-import { instance } from '../../utils/axios';
-import { useAppDispatch } from '../../utils/hook';
-import { login } from '../../store/slice/auth';
+import { useAppDispatch, useAppSelector } from '../../utils/hook';
 import { AppErrors } from '../../common/errors';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import { LoginSchema, RegisterSchema } from '../../utils/yup';
-import { Data } from '../../common/types/auth';
-// import "./style.scss";
+import { LoginData, RegisterData, UserData } from '../../common/types/auth';
 import { StyledDiv, StyledForm } from './styles';
+import { loginUser, registerUser } from '../../store/thunks/auth';
 
 
 const AuthRootComponent: FC = (): JSX.Element => {
@@ -29,43 +27,42 @@ const AuthRootComponent: FC = (): JSX.Element => {
         resolver: yupResolver(location.pathname === '/login' ? LoginSchema : RegisterSchema),
     });
 
-    const handleSubmitForm = async (data: Data) => {
+    const loading = useAppSelector((state) => state.auth.isLoading)
+
+    const handleSubmitForm = async (data: UserData) => {
         if (location.pathname === '/login') {
             try {
-                const userData = {
-                    email: data.email,
-                    password: data.password
-                }
-                const user = await instance.post('auth/login', userData);
-                dispatch(login(user.data));
-                navigate('/')
+                await dispatch(loginUser(data as LoginData));
+                navigate('/');
             } catch (error: any) {
-                return error.message
+                console.error('Login error:', error);
+                return error.message;
             }
         } else {
             if (data.password === data.confirmPassword) {
                 try {
-                    const userData = {
-                        firstName: data.name,
-                        userName: data.username,
+                    const userData: RegisterData = {
+                        firstName: data.firstName,
+                        userName: data.userName,
                         email: data.email,
                         password: data.password,
-                    }
-                    const newUser = await instance.post('auth/register', userData);
-                    dispatch(login(newUser.data));
-                    navigate('/')
+                    };
+                    await dispatch(registerUser(userData));
+                    navigate('/');
                 } catch (error: any) {
-                    return error.message
+                    console.error('Registration error:', error);
+                    return error.message;
                 }
             } else {
                 throw new Error(AppErrors.PasswordDoesNotMatch);
             }
         }
-    }
+    };
+
 
     return (
         <StyledDiv >
-            <StyledForm onSubmit={handleSubmit(handleSubmitForm as () => Promise<Data>)}>
+            <StyledForm onSubmit={handleSubmit(handleSubmitForm as () => Promise<UserData>)}>
                 <Box
                     display='flex'
                     justifyContent='center'
@@ -83,12 +80,14 @@ const AuthRootComponent: FC = (): JSX.Element => {
                                 navigate={navigate}
                                 register={register as any}
                                 errors={errors}
+                                loading={loading}
                             />
                             : location.pathname === '/register' ?
                                 <RegisterPage
                                     navigate={navigate}
                                     register={register as any}
                                     errors={errors}
+                                    loading={loading}
                                 />
                                 : null}
                 </Box>
