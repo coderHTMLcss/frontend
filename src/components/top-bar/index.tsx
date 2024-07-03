@@ -27,7 +27,7 @@ const TopBarComponent: FC<TopBarProps> = ({ isOpen, setIsOpen }): JSX.Element =>
                 <FlexBetween>
                     <MenuIcon onClick={() => setIsOpen(!isOpen)} />
                     <Typography variant="h3">
-                        Welcome {user ? `${user.firstName}` : ''}
+                        Welcome {sessionStorage.getItem('name')}
                     </Typography>
                 </FlexBetween>
                 <Box display='flex'>

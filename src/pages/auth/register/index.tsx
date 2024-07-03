@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
-import { TextField, Button, Typography } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
 import { IPropsRegister } from '../../../common/types/auth';
 import { StyledSpan } from '../styles';
-import AppButton from '../../../components/app-button';
+import AppLoadingButton from '../../../components/loading-button';
 
-const RegisterPage: FC<IPropsRegister> = ({ navigate, register, errors }): JSX.Element => {
+const RegisterPage: FC<IPropsRegister> = ({ navigate, register, errors, loading }): JSX.Element => {
     return (
         <>
             <Typography variant="h4" fontFamily="Poppins" textAlign='center' marginBottom={2}>
@@ -14,26 +14,26 @@ const RegisterPage: FC<IPropsRegister> = ({ navigate, register, errors }): JSX.E
                 Enter registration details
             </Typography>
             <TextField
-                error={!!errors.name}
+                error={!!errors.firstName}
                 type='text'
                 fullWidth={true}
                 margin='normal'
                 label="Name"
                 variant="outlined"
                 placeholder='Enter your name'
-                helperText={errors.name ? `${errors.name.message}` : ''}
-                {...register('name')}
+                helperText={errors.firstName ? `${errors.firstName.message}` : ''}
+                {...register('firstName',)}
             />
             <TextField
-                error={!!errors.username}
+                error={!!errors.userName}
                 type='text'
                 fullWidth={true}
                 margin='normal'
                 label="Username"
                 variant="outlined"
                 placeholder='Enter your username'
-                helperText={errors.username ? `${errors.username.message}` : ''}
-                {...register('username')}
+                helperText={errors.userName ? `${errors.userName.message}` : ''}
+                {...register('userName')}
             />
             <TextField
                 error={!!errors.email}
@@ -68,7 +68,7 @@ const RegisterPage: FC<IPropsRegister> = ({ navigate, register, errors }): JSX.E
                 helperText={errors.confirmPassword ? `${errors.confirmPassword.message}` : ''}
                 {...register('confirmPassword')}
             />
-            <AppButton type='submit' variant="contained">Sign Up</AppButton>
+            <AppLoadingButton loading={loading} type='submit' variant="contained">Sign Up</AppLoadingButton>
             <Typography variant="body1" sx={{ fontFamily: 'Poppins' }}>
                 If you have an account?
                 <StyledSpan className='incitingText' onClick={() => navigate('/login')}>Login</StyledSpan>
