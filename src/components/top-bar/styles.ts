@@ -1,4 +1,4 @@
-import { Theme, styled } from "@mui/material";
+import { Box, Theme, styled } from "@mui/material";
 import { AppBar, Toolbar, IconButton, InputBase, Grid } from "@mui/material";
 import { MenuOutlined } from "@mui/icons-material";
 import { tokens } from "../../theme";
@@ -40,7 +40,7 @@ export const ThemeIcon = styled(IconButton)`
 export const SearchBlock = styled(Grid)<{ theme: StyledComponentProps }>`
   display: flex;
   max-height: 45px;
-  background-color: ${({ theme }) => tokens(theme.palette.mode).primary[500]};
+  background-color: ${({ theme }) => tokens(theme.palette.mode).primary[600]};
   border-radius: 8px;
   margin-left: 28px;
 `;
