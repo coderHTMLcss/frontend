@@ -1,17 +1,19 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { FC, useCallback, useEffect, useMemo, useRef } from 'react'
 import { useAppDispatch, useAppSelector } from '../../utils/hook'
 import { getFavoriteAssets } from '../../store/thunks/assets'
 import { Grid } from '@mui/material'
 import { StyledAssetsName, StyledCapitalize, StyledCardPrice, StyledCartItem, StyledItemsDetails, StyledRootBox } from './styles'
+import AreaChart from '../../components/charts/area-chart'
 
-const Home = () => {
+const Home: FC = (): JSX.Element => {
     const favoriteAssets: any[] = useAppSelector(state => state.assets.favoriteAssets)
     const dispatch = useAppDispatch();
     const fetchDataRef = useRef(false);
 
 
     const favoritesAssetsName = useMemo(() => ['bitcoin', 'ethereum'], []);
-    const filteredFavoritesAssetsName = favoriteAssets.filter((value, index, self) => index === self.findIndex((t) => t.name === value.name))
+    const filteredFavoritesAssetsName = favoriteAssets.filter((value, index, self) =>
+        index === self.findIndex((t) => t.name === value.name));
 
     const fetchData = useCallback((data: string[]) => {
         data.forEach((item: string) => {
@@ -39,6 +41,7 @@ const Home = () => {
                         </StyledItemsDetails>
                     </Grid>
                     <Grid item xs={12} lg={6} md={6}>
+                        <AreaChart data={item.data.prices} />
                         <h5>Chart</h5>
                     </Grid>
                 </StyledCartItem>
