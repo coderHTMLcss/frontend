@@ -28,20 +28,24 @@ const Home: FC = (): JSX.Element => {
     }, [favoritesAssetsName, fetchData]);
 
     const renderFavoriteBlock = filteredFavoritesAssetsName.map((item: any) => {
-        const currentPrice = item.data.prices[0];
-        const currentCap = item.data.market_caps[0];
+        const currentPrice = item.singleAsset.map((el: any) => el.current_price);
+        const currentCap = item.singleAsset.map((el: any) => el.market_cap);
+        const changePrice = item.singleAsset.map((el: any) => el.price_change_percentage_24h);
+
         return (
             <Grid item xs={12} lg={6} md={6} key={item.name}>
                 <StyledCartItem container >
                     <Grid item xs={12} lg={6} md={6}>
                         <StyledAssetsName>{item.name}</StyledAssetsName>
                         <StyledItemsDetails>
-                            <StyledCardPrice>${currentPrice[1].toFixed(4)}</StyledCardPrice>
-                            <StyledCapitalize>${currentCap[1].toFixed(0)}</StyledCapitalize>
+                            <StyledCardPrice>${currentPrice}</StyledCardPrice>
+                            <StyledCapitalize><span style={{
+                                color: changePrice > 0 ? '#green' : '#red'
+                            }}>{Number(changePrice).toFixed(1)}%</span> ${currentCap}</StyledCapitalize>
                         </StyledItemsDetails>
                     </Grid>
                     <Grid item xs={12} lg={6} md={6}>
-                        <AreaChart data={item.data.prices} />
+                        <AreaChart data={item.data} />
                         <h5>Chart</h5>
                     </Grid>
                 </StyledCartItem>
