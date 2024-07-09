@@ -10,6 +10,24 @@ export const StyledRootBox = styled(Box)`
   padding: 32px;
 `;
 
+export const StyledLineChartBlock = styled(Grid)<StyledComponentProps>(
+  ({ theme }) => {
+    const colors = theme ? tokens(theme.palette.mode) : tokens("light");
+    return {
+      padding: "20px 16px",
+      marginTop: "32px",
+      minHeight: 270,
+      border: `1px solid ${colors.borderColor}`,
+      borderRadius: "12px",
+      backgroundColor: `${
+        theme.palette.mode === "light"
+          ? colors.primary.DEFAULT
+          : colors.primary[600]
+      }`,
+    };
+  }
+);
+
 export const StyledCartItem = styled(Grid)<StyledComponentProps>(
   ({ theme }) => {
     const colors = theme ? tokens(theme.palette.mode) : tokens("light");

@@ -2,11 +2,16 @@ import React, { FC, useCallback, useEffect, useMemo, useRef } from 'react'
 import { useAppDispatch, useAppSelector } from '../../utils/hook'
 import { getFavoriteAssets } from '../../store/thunks/assets'
 import { Grid } from '@mui/material'
-import { StyledAssetsName, StyledCapitalize, StyledCardPrice, StyledCartItem, StyledItemsDetails, StyledRootBox } from './styles'
+import { StyledAssetsName, StyledCapitalize, StyledCardPrice, StyledCartItem, StyledItemsDetails, StyledLineChartBlock, StyledRootBox } from './styles'
 import AreaChart from '../../components/charts/area-chart'
+import LineChart from '../../components/charts/line-chart'
+import { IChartData } from '../../common/types/assets/index'
 
 const Home: FC = (): JSX.Element => {
-    const favoriteAssets: any[] = useAppSelector(state => state.assets.favoriteAssets)
+    const favoriteAssets: IChartData[] = useAppSelector(state => state.assets.favoriteAssets);
+    // const assetsArray: any = useAppSelector(
+    //     (state) => state.assets.assets,
+    // )
     const dispatch = useAppDispatch();
     const fetchDataRef = useRef(false);
 
@@ -19,7 +24,11 @@ const Home: FC = (): JSX.Element => {
         data.forEach((item: string) => {
             dispatch(getFavoriteAssets(item))
         })
-    }, [dispatch])
+    }, [dispatch]);
+
+    // const filteredAssetArray = assetsArray
+    //     .slice()
+    //     .sort((a, b) => b.current_price - a.current_price)
 
     useEffect(() => {
         if (fetchDataRef.current) return
@@ -45,7 +54,7 @@ const Home: FC = (): JSX.Element => {
                         </StyledItemsDetails>
                     </Grid>
                     <Grid item xs={12} lg={6} md={6}>
-                        <AreaChart data={item.data} />
+                        <AreaChart data={item.price_chart_data} />
                         <h5>Chart</h5>
                     </Grid>
                 </StyledCartItem>
@@ -58,6 +67,11 @@ const Home: FC = (): JSX.Element => {
             <Grid container spacing={2}>
                 {renderFavoriteBlock}
             </Grid>
+            <StyledLineChartBlock container>
+                <Grid item xs={12} sm={12} lg={12}>
+                    {filteredFavoritesAssetsName.length && <LineChart data={filteredFavoritesAssetsName} />}
+                </Grid>
+            </StyledLineChartBlock>
         </StyledRootBox>
     )
 }
