@@ -45,6 +45,29 @@ export const StyledCartItem = styled(Grid)<StyledComponentProps>(
   }
 );
 
+export const StyledTopPriceRoot = styled(Grid)<StyledComponentProps>(
+  ({ theme }) => {
+    const colors = theme ? tokens(theme.palette.mode) : tokens("light");
+    return {
+      padding: "20px 16px",
+      marginTop: 32,
+      minHeight: 270,
+      border: `1px solid ${colors.borderColor}`,
+      borderRadius: "12px",
+      backgroundColor: `${
+        theme.palette.mode === "light"
+          ? colors.primary.DEFAULT
+          : colors.primary[600]
+      }`,
+      "& .MuiPaper-root": {
+        backgroundColor: "transparent !important",
+        boxShadow: "none !important",
+        backgroundImage: "none !important",
+      },
+    };
+  }
+);
+
 export const StyledAssetsName = styled("h3")`
   font-size: 25px;
   font-weight: 600;

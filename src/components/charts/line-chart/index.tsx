@@ -25,8 +25,6 @@ ChartJS.register(
 
 const LineChart: FC<LineChartProps> = (props: LineChartProps) => {
     const { data } = props
-    console.log(data);
-
     const options = {
         responsive: true,
         scales: {
