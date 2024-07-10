@@ -5,7 +5,7 @@ import { Grid } from '@mui/material'
 import { StyledAssetsName, StyledCapitalize, StyledCardPrice, StyledCartItem, StyledItemsDetails, StyledLineChartBlock, StyledRootBox } from './styles'
 import AreaChart from '../../components/charts/area-chart'
 import LineChart from '../../components/charts/line-chart'
-import { IChartData } from '../../common/types/assets/index'
+import { IChartData, ISingleAsset } from '../../common/types/assets/index'
 
 const Home: FC = (): JSX.Element => {
     const favoriteAssets: IChartData[] = useAppSelector(state => state.assets.favoriteAssets);
@@ -36,10 +36,10 @@ const Home: FC = (): JSX.Element => {
         fetchData(favoritesAssetsName)
     }, [favoritesAssetsName, fetchData]);
 
-    const renderFavoriteBlock = filteredFavoritesAssetsName.map((item: any) => {
-        const currentPrice = item.singleAsset.map((el: any) => el.current_price);
-        const currentCap = item.singleAsset.map((el: any) => el.market_cap);
-        const changePrice = item.singleAsset.map((el: any) => el.price_change_percentage_24h);
+    const renderFavoriteBlock = filteredFavoritesAssetsName.map((item: IChartData) => {
+        const currentPrice = item.singleAsset.map((el: ISingleAsset) => el.current_price);
+        const currentCap = item.singleAsset.map((el: ISingleAsset) => el.market_cap);
+        const changePrice = item.singleAsset.map((el: ISingleAsset) => el.price_change_percentage_24h);
 
         return (
             <Grid item xs={12} lg={6} md={6} key={item.name}>
@@ -49,7 +49,7 @@ const Home: FC = (): JSX.Element => {
                         <StyledItemsDetails>
                             <StyledCardPrice>${currentPrice}</StyledCardPrice>
                             <StyledCapitalize><span style={{
-                                color: changePrice > 0 ? '#green' : '#red'
+                                color: changePrice[0] > 0 ? '#green' : '#red'
                             }}>{Number(changePrice).toFixed(1)}%</span> ${currentCap}</StyledCapitalize>
                         </StyledItemsDetails>
                     </Grid>
