@@ -71,7 +71,7 @@ const SidebarComponent: React.FC<SidebarProps> = ({ isNonMobile, drawerWidth, is
                             <FlexBetween>
                                 <Brand>
                                     <img src={Logo} alt='logo' />
-                                    <BrandTitle variant='h1'>Demo</BrandTitle>
+                                    <BrandTitle variant='h1'>Crypto</BrandTitle>
                                 </Brand>
                                 {!isNonMobile && (
                                     <IconButton onClick={() => setIsOpen(!isOpen)}>

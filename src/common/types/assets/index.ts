@@ -12,6 +12,7 @@ interface Roi {
 }
 
 export interface ISingleAsset {
+  slice(): unknown;
   id: string;
   symbol: string;
   name: string;
