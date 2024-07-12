@@ -25,6 +25,8 @@ import {
     NavItem as StyledNavItem,
 } from './styles';
 import { SidebarProps } from '../../common/types/sidebar';
+import ThemeSwitcher from '../them-switcher';
+import SearchElement from '../search-block';
 
 const SidebarComponent: React.FC<SidebarProps> = ({ isNonMobile, drawerWidth, isOpen, setIsOpen }): JSX.Element => {
     const [active, setActive] = useState<string>('');
@@ -80,12 +82,24 @@ const SidebarComponent: React.FC<SidebarProps> = ({ isNonMobile, drawerWidth, is
                                 )}
                             </FlexBetween>
                         </Box>
+                        <List>
+                            {!isNonMobile && (<ListItem>
+                                <SearchElement />
+                            </ListItem>)}
+                        </List>
                         <NavList>
                             {renderNavMenu}
                         </NavList>
                     </NavBlock>
                     <Box width='100%'>
                         <List>
+                            {!isNonMobile && (
+                                <ListItem>
+                                    <Box padding='10px'>
+                                        <ThemeSwitcher />
+                                    </Box>
+                                </ListItem>
+                            )}
                             <ListItem>
                                 <StyledNavItem>
                                     <ListItemIcon>

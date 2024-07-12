@@ -8,7 +8,7 @@ import TopBarComponent from "../top-bar";
 const LayoutComponent: FC = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const isNonMobile = useMediaQuery("(min-width:760px)");
 
   return (
     location.pathname === "/login" || location.pathname === "/register" ? (
@@ -39,6 +39,7 @@ const LayoutComponent: FC = (): JSX.Element => {
           <TopBarComponent
             isOpen={isOpen}
             setIsOpen={setIsOpen}
+            isNonMobile={isNonMobile}
           />
           <Outlet />
         </Box>
