@@ -8,7 +8,7 @@ import LineChart from '../../components/charts/line-chart'
 import { IChartData, ISingleAsset } from '../../common/types/assets/index'
 import TopPriceComponent from '../../components/top-price'
 
-const Home: FC = (): JSX.Element => {
+const HomePage: FC = (): JSX.Element => {
     const favoriteAssets: IChartData[] = useAppSelector(state => state.assets.favoriteAssets);
     const assetsArray: ISingleAsset[] = useAppSelector(
         (state) => state.assets.assets,
@@ -89,4 +89,4 @@ const Home: FC = (): JSX.Element => {
     )
 }
 
-export default Home
+export default HomePage
