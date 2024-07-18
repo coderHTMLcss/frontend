@@ -13,8 +13,8 @@ const TopPriceComponent: FC<ITablePriceData> = ({ assets }) => {
                         <TableRow>
                             <TableCell>Name</TableCell>
                             <TableCell align="right">Price</TableCell>
-                            <TableCell align="right">Change in (%)</TableCell>
                             <TableCell align="right">Change in ($)</TableCell>
+                            <TableCell align="right">Change in (%)</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
