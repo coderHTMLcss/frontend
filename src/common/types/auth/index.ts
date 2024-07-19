@@ -7,6 +7,7 @@ export interface UserData {
   confirmPassword: string;
   userName: string;
 }
+
 export interface IPropsLogin<
   TFieldValues extends FieldValues = FieldValues,
   TContext = any
@@ -28,12 +29,15 @@ export interface IPropsRegister<
 }
 
 export interface IAuthState {
-  user: IPublicUser;
+  user: {
+    user: IPublicUser;
+    token: string;
+  };
   isLogged: boolean;
   isLoading: boolean;
 }
 
-interface IPublicUser {
+export interface IPublicUser {
   id: number | null;
   firstName: string;
   userName: string;
@@ -52,12 +56,12 @@ interface IWatchlist {
   user: number | null;
 }
 
-export interface LoginData {
+export interface ILoginData {
   email: string;
   password: string;
 }
 
-export interface RegisterData {
+export interface IRegisterData {
   email: string;
   password: string;
   firstName: string;
