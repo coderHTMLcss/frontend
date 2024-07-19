@@ -20,7 +20,6 @@ const WatchListPage = () => {
             return otherElement.assetId === element.id
         })
     })
-    console.log(filteredArray)
     return (
         <StyledRoot >
             <StyledWatchlistHeading >

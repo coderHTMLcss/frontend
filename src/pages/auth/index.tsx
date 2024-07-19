@@ -8,7 +8,7 @@ import { AppErrors } from '../../common/errors';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import { LoginSchema, RegisterSchema } from '../../utils/yup';
-import { LoginData, RegisterData, UserData } from '../../common/types/auth';
+import { ILoginData, IRegisterData, UserData } from '../../common/types/auth';
 import { StyledDiv, StyledForm } from './styles';
 import { loginUser, registerUser } from '../../store/thunks/auth';
 
@@ -32,7 +32,7 @@ const AuthRootComponent: FC = (): JSX.Element => {
     const handleSubmitForm = async (data: UserData) => {
         if (location.pathname === '/login') {
             try {
-                await dispatch(loginUser(data as LoginData));
+                await dispatch(loginUser(data as ILoginData));
                 navigate('/');
             } catch (error: any) {
                 console.error('Login error:', error);
@@ -41,7 +41,7 @@ const AuthRootComponent: FC = (): JSX.Element => {
         } else {
             if (data.password === data.confirmPassword) {
                 try {
-                    const userData: RegisterData = {
+                    const userData: IRegisterData = {
                         firstName: data.firstName,
                         userName: data.userName,
                         email: data.email,
