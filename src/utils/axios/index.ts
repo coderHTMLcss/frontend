@@ -7,6 +7,11 @@ export const instance = axios.create({
   //   headers: { "X-Custom-Header": "foobar" },
 });
 
+export const instanceNews = axios.create({
+  baseURL: "https://min-api.cryptocompare.com/data/v2/",
+  timeout: 1000,
+});
+
 export const instanceAuth = axios.create({
   // baseURL: `${process.env.REACT_APP_BACKEND_URL}`,
   baseURL: "http://localhost:5000",
