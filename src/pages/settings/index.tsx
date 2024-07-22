@@ -9,6 +9,8 @@ import { tokens } from '../../theme'
 import { useAppDispatch } from '../../utils/hook'
 import SettingsPersonalInfoComponent from '../../components/settings-personal-info'
 import { getPublicUser } from '../../store/thunks/auth'
+import ChangePasswordComponent from '../../components/change-password'
+import DeleteUserComponent from '../../components/delete-user'
 
 
 const SettingsPage: FC = (): JSX.Element => {
@@ -49,10 +51,10 @@ const SettingsPage: FC = (): JSX.Element => {
                 <SettingsPersonalInfoComponent />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                {/* <ChangePasswordComponent /> */}
+                <ChangePasswordComponent />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                {/* <DeleteUserComponent /> */}
+                <DeleteUserComponent />
             </TabPanel>
         </Grid>
     )
