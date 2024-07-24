@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Box } from "@mui/material";
 import { TabPanelProps } from "../../common/types/tabs";
 
-const TabPanel: FC<TabPanelProps> = (props: TabPanelProps) => {
+const TabPanel: FC<TabPanelProps> = (props: TabPanelProps): JSX.Element => {
   const { children, value, index, ...other } = props;
 
   return (

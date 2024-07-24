@@ -6,10 +6,10 @@ import {
 } from '@mui/material';
 import { ISingleAsset } from '../../common/types/assets';
 import { useAppSelector } from '../../utils/hook';
-import { SyntheticEvent, useState } from 'react';
+import { FC, SyntheticEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SearchElement = () => {
+const SearchElement: FC = (): JSX.Element => {
     const [selectedItem, setSelectedItem] = useState<string | null>(null);
     const navigate = useNavigate();
     const isNonMobile = useMediaQuery("(min-width:760px)");

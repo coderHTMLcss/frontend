@@ -9,9 +9,13 @@ import {
 } from './styles';
 import ThemeSwitcher from '../them-switcher';
 import SearchElement from '../search-block';
+import { useAppSelector } from '../../utils/hook';
 
 const TopBarComponent: FC<TopBarProps> = ({ isOpen, setIsOpen, isNonMobile }): JSX.Element => {
     const theme = useTheme();
+    const { user } = useAppSelector((state) => state.auth.user)
+
+
     return (
         <StyledAppBar theme={theme}>
             <StyledToolbar>
@@ -20,7 +24,7 @@ const TopBarComponent: FC<TopBarProps> = ({ isOpen, setIsOpen, isNonMobile }): J
                         <FlexBetween>
                             <MenuIcon onClick={() => setIsOpen(!isOpen)} />
                             <Typography variant="h3">
-                                Welcome {sessionStorage.getItem('name')}
+                                Welcome {user ? `${user.firstName}` : ''}
                             </Typography>
                         </FlexBetween>
                     </Grid>

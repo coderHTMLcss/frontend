@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../utils/hook'
 import { getNews } from '../../store/thunks/news';
 import { Box, Grid, Link, Typography } from '@mui/material';
 import { StyledRoot, StyledBlockTitle, StyledNewsBlock, StyledNewsTitle, StyledReadMore } from './styles';
 
-const NewsPage = () => {
+const NewsPage: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
     const { news } = useAppSelector((state) => state.news)
 
     useEffect(() => {
         dispatch(getNews())
-    }, [])
+    }, [dispatch])
 
     const renderNewsBlock = news.map((element: any) => (
         <StyledNewsBlock container key={element.id}>

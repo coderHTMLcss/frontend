@@ -1,4 +1,4 @@
-import { styled, Grid, Box, TextField } from "@mui/material";
+import { styled, Grid } from "@mui/material";
 
 export const StyledTabHeading = styled(Grid)`
   width: 100%;

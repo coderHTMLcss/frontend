@@ -1,6 +1,4 @@
 import React, { FC, useState } from 'react'
-import { Box, Grid, TextField } from '@mui/material'
-// import { useStyles } from '../settings-personal-info/styles'
 import AppLoadingButton from '../loading-button'
 import { useAppDispatch } from '../../utils/hook'
 import { updateUserPassword } from '../../store/thunks/auth'
