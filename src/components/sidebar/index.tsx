@@ -37,6 +37,12 @@ const SidebarComponent: React.FC<SidebarProps> = ({ isNonMobile, drawerWidth, is
         setActive(pathname);
     }, [pathname]);
 
+    const handleLogout = () => {
+        sessionStorage.removeItem('name');
+        sessionStorage.removeItem('token');
+        navigate('/login')
+    }
+
     const renderNavMenu = navMenu.map((nav) => (
         <ListItem key={nav.id}>
             <StyledNavItem
@@ -101,11 +107,11 @@ const SidebarComponent: React.FC<SidebarProps> = ({ isNonMobile, drawerWidth, is
                                 </ListItem>
                             )}
                             <ListItem>
-                                <StyledNavItem>
+                                <StyledNavItem onClick={handleLogout}>
                                     <ListItemIcon>
                                         <LogoutOutlined />
                                     </ListItemIcon>
-                                    <ListItemText>
+                                    <ListItemText >
                                         <Typography>Logout</Typography>
                                     </ListItemText>
                                 </StyledNavItem>
