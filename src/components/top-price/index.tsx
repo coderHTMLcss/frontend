@@ -1,10 +1,8 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { ITablePriceData } from '../../common/types/assets';
 
-const TopPriceComponent: FC<ITablePriceData> = ({ assets }) => {
-    // console.log(assets);
-
+const TopPriceComponent: FC<ITablePriceData> = ({ assets }): JSX.Element => {
     return (
         <>
             <TableContainer component={Paper}>

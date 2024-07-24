@@ -76,7 +76,7 @@ const SidebarComponent: React.FC<SidebarProps> = ({ isNonMobile, drawerWidth, is
                                     <BrandTitle variant='h1'>Crypto</BrandTitle>
                                 </Brand>
                                 {!isNonMobile && (
-                                    <IconButton onClick={() => setIsOpen(!isOpen)}>
+                                    <IconButton sx={{ width: '10px', height: '10px', padding: '5px' }} onClick={() => setIsOpen(!isOpen)}>
                                         <ChevronLeftOutlined />
                                     </IconButton>
                                 )}

@@ -8,10 +8,7 @@ export interface UserData {
   userName: string;
 }
 
-export interface IPropsLogin<
-  TFieldValues extends FieldValues = FieldValues,
-  TContext = any
-> {
+export interface IPropsLogin<TFieldValues extends FieldValues = FieldValues> {
   navigate: (to: string) => void;
   register: UseFormRegister<TFieldValues>;
   errors: FieldErrors<TFieldValues>;
@@ -19,8 +16,7 @@ export interface IPropsLogin<
 }
 
 export interface IPropsRegister<
-  TFieldValues extends FieldValues = FieldValues,
-  TContext = any
+  TFieldValues extends FieldValues = FieldValues
 > {
   navigate: (to: string) => void;
   register: UseFormRegister<TFieldValues>;
@@ -47,7 +43,7 @@ export interface IPublicUser {
   watchlist: [IWatchlist];
 }
 
-interface IWatchlist {
+export interface IWatchlist {
   id: number | null;
   name: string;
   assetId: string;
